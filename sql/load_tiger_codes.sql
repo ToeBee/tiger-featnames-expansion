@@ -1,35 +1,34 @@
 drop table if exists tiger_direction_codes, tiger_name_qualifiers, tiger_name_types;
 
 create table tiger_direction_codes (
-  dir_code varchar(5),
+  dir_code integer PRIMARY KEY,
   dir_abbrv varchar(5),
   dir_expanded varchar(20)
 );
 
 create table tiger_name_qualifiers (
-  qual_code varchar(5),
+  qual_code integer PRIMARY KEY,
   qual_abbrv varchar(5),
   qual_expanded varchar(20)
 );
 
 
-insert into tiger_direction_codes values ('11', 'N', 'North');
-insert into tiger_direction_codes values ('12', 'S', 'South');
-insert into tiger_direction_codes values ('13', 'E', 'East');
-insert into tiger_direction_codes values ('14', 'W', 'West');
-insert into tiger_direction_codes values ('15', 'NE', 'Northeast');
-insert into tiger_direction_codes values ('16', 'NW', 'Northwest');
-insert into tiger_direction_codes values ('17', 'SE', 'Southeast');
-insert into tiger_direction_codes values ('18', 'SW', 'Southwest');
-insert into tiger_direction_codes values ('19', 'N', 'Norte');
-insert into tiger_direction_codes values ('20', 'S', 'Sur');
-insert into tiger_direction_codes values ('21', 'E', 'Este');
-insert into tiger_direction_codes values ('22', 'O', 'Oeste');
-insert into tiger_direction_codes values ('23', 'NE', 'Noreste');
-insert into tiger_direction_codes values ('24', 'NO', 'Noroeste');
-insert into tiger_direction_codes values ('25', 'SE', 'Sudeste');
-insert into tiger_direction_codes values ('26', 'SO', 'Sudoeste');
-
+insert into tiger_direction_codes values (11, 'N', 'North');
+insert into tiger_direction_codes values (12, 'S', 'South');
+insert into tiger_direction_codes values (13, 'E', 'East');
+insert into tiger_direction_codes values (14, 'W', 'West');
+insert into tiger_direction_codes values (15, 'NE', 'Northeast');
+insert into tiger_direction_codes values (16, 'NW', 'Northwest');
+insert into tiger_direction_codes values (17, 'SE', 'Southeast');
+insert into tiger_direction_codes values (18, 'SW', 'Southwest');
+insert into tiger_direction_codes values (19, 'N', 'Norte');
+insert into tiger_direction_codes values (20, 'S', 'Sur');
+insert into tiger_direction_codes values (21, 'E', 'Este');
+insert into tiger_direction_codes values (22, 'O', 'Oeste');
+insert into tiger_direction_codes values (23, 'NE', 'Noreste');
+insert into tiger_direction_codes values (24, 'NO', 'Noroeste');
+insert into tiger_direction_codes values (25, 'SE', 'Sudeste');
+insert into tiger_direction_codes values (26, 'SO', 'Sudoeste');
 
 insert into tiger_name_qualifiers values ('1', 'Acc', 'Access');
 insert into tiger_name_qualifiers values ('12', 'Alt', 'Alternate');
@@ -51,16 +50,20 @@ insert into tiger_name_qualifiers values ('27', 'Ovp', 'Overpass');
 
 
 create table tiger_name_types (
-  typ_code varchar(5),
+  typ_code integer PRIMARY KEY,
   typ_expanded varchar(50),
   typ_abbrv varchar(25),
   typ_spanish varchar(5),
   typ_translation varchar(50),
-  typ_prefix varchar(5),
-  typ_suffix varchar(5)
+  typ_prefix char(1),
+  typ_suffix char(1)
 );
 
 -- The tiger_abbrev.csv file is something I created from the TIGER
 -- documentation PDF files. It contains expansions for things like 
 -- Rd->Road along with some flags that were also in the PDF
 \copy tiger_name_types from 'tiger_abbrev.csv' with CSV;
+
+ANALYZE tiger_name_types;
+ANALYZE tiger_direction_codes;
+ANALYZE tiger_name_qualifiers;
